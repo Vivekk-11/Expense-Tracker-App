@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:fourth_app/models/expense.dart';
 
 class NewExpense extends StatefulWidget {
-  const NewExpense({super.key});
+  const NewExpense({super.key, required this.onAddExpense});
+
+  final void Function(Expense expense) onAddExpense;
+
   @override
   State<NewExpense> createState() {
     return _NewExpense();
@@ -54,6 +57,15 @@ class _NewExpense extends State<NewExpense> {
           });
       return;
     }
+
+    widget.onAddExpense(Expense(
+      title: _titleController.text,
+      amount: enteredAmount,
+      date: _pickedDate!,
+      category: _selectedCategory,
+    ));
+
+    Navigator.pop(context);
   }
 
   @override
